@@ -1,16 +1,32 @@
 /** Critical CSS for the Varun Jewellers theme. This file is included on every page. */
 
 /* Reset styles inspired by https://www.joshwcomeau.com/css/custom-css-reset/ */
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  min-height: 100vh;
   min-height: 100svh;
+  font-family: var(--font-primary--family);
+  font-weight: var(--font-primary--weight);
+  font-style: var(--font-primary--style);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
@@ -28,10 +44,16 @@ svg {
 }
 
 input,
+button,
 textarea,
 select {
   font: inherit;
-  border-radius: var(--style-border-radius-inputs);
+}
+
+input,
+textarea,
+select {
+  border-radius: var(--style-border-radius-inputs, 8px);
 }
 
 select {
@@ -47,6 +69,7 @@ dialog {
 p {
   text-wrap: pretty;
 }
+
 p,
 h1,
 h2,
@@ -61,44 +84,82 @@ p:empty {
   display: none;
 }
 
-:is(p, h1, h2, h3, h4, h5, h6):first-child,
-:empty:first-child + :where(p, h1, h2, h3, h4, h5, h6) {
-  margin-block-start: 0;
-}
-
-:is(p, h1, h2, h3, h4, h5, h6):last-child,
-:where(p, h1, h2, h3, h4, h5, h6) + :has(+ :empty:last-child) {
-  margin-block-end: 0;
-}
-
-/** Theme styles below */
-body {
-  font-family: var(--font-primary--family);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading--family);
   font-weight: var(--font-heading--weight);
   line-height: 1.2;
 }
 
-button {
-  cursor: pointer;
-  font-family: inherit;
+ul, ol {
+  list-style: none;
 }
 
 a {
   color: inherit;
-  transition: color var(--transition-fast);
+  text-decoration: none;
+  transition: color 150ms ease;
 }
 
 a:hover {
   color: var(--color-accent);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  background: none;
+  border: none;
+}
+
+/** Main content area */
+main {
+  flex: 1;
+}
+
+/** Shopify Section - Simple block display, let sections handle their own layouts */
+.shopify-section {
+  display: block;
+  width: 100%;
+}
+
+/** Container */
+.container {
+  width: 100%;
+  max-width: var(--page-width, 90rem);
+  margin: 0 auto;
+  padding: 0 var(--page-margin, 20px);
+}
+
+/** Section Spacing */
+.section-padding {
+  padding-top: var(--section-padding-y, 4rem);
+  padding-bottom: var(--section-padding-y, 4rem);
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: var(--section-padding-y-mobile, 2.5rem);
+    padding-bottom: var(--section-padding-y-mobile, 2.5rem);
+  }
+}
+
+/** Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl, 3rem);
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: var(--spacing-md, 1rem);
+  color: var(--color-foreground);
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /** Button Styles */
@@ -111,26 +172,27 @@ a:hover {
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
-  border-radius: var(--style-border-radius-buttons);
-  transition: all var(--transition-fast);
+  border-radius: var(--style-border-radius-buttons, 8px);
+  transition: all 150ms ease;
   border: 2px solid transparent;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .btn-primary {
-  background-color: var(--color-button-primary-bg);
-  color: var(--color-button-primary-text);
-  border-color: var(--color-button-primary-bg);
+  background-color: var(--color-button-primary-bg, #3b82f6);
+  color: var(--color-button-primary-text, #ffffff);
+  border-color: var(--color-button-primary-bg, #3b82f6);
 }
 
 .btn-primary:hover {
   background-color: transparent;
-  color: var(--color-button-primary-bg);
+  color: var(--color-button-primary-bg, #3b82f6);
 }
 
 .btn-secondary {
-  background-color: var(--color-button-secondary-bg);
-  color: var(--color-button-secondary-text);
+  background-color: transparent;
+  color: var(--color-foreground);
   border-color: var(--color-foreground);
 }
 
@@ -142,7 +204,7 @@ a:hover {
 .btn-outline {
   background-color: transparent;
   color: var(--color-foreground);
-  border-color: var(--color-border);
+  border-color: var(--color-border, #334155);
 }
 
 .btn-outline:hover {
@@ -158,69 +220,6 @@ a:hover {
 .btn-lg {
   padding: 1rem 2rem;
   font-size: 1rem;
-}
-
-/** Section layout utilities */
-.shopify-section {
-  --content-width: min(
-    calc(var(--page-width) - var(--page-margin) * 2),
-    calc(100% - var(--page-margin) * 2)
-  );
-  --content-margin: minmax(var(--page-margin), 1fr);
-  --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
-
-  position: relative;
-  grid-template-columns: var(--content-grid);
-  display: grid;
-  width: 100%;
-}
-
-.shopify-section > * {
-  grid-column: 2;
-}
-
-.shopify-section > .full-width {
-  grid-column: 1 / -1;
-}
-
-/** Container */
-.container {
-  width: 100%;
-  max-width: var(--page-width);
-  margin: 0 auto;
-  padding: 0 var(--page-margin);
-}
-
-/** Section Spacing */
-.section-padding {
-  padding-top: var(--section-padding-y);
-  padding-bottom: var(--section-padding-y);
-}
-
-@media (max-width: 768px) {
-  .section-padding {
-    padding-top: var(--section-padding-y-mobile);
-    padding-bottom: var(--section-padding-y-mobile);
-  }
-}
-
-/** Section Headers */
-.section-header {
-  text-align: center;
-  margin-bottom: var(--spacing-2xl);
-}
-
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  margin-bottom: var(--spacing-md);
-  color: var(--color-foreground);
-}
-
-.section-subtitle {
-  font-size: 1rem;
-  color: var(--color-muted);
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 /** Utilities */
@@ -240,22 +239,10 @@ a:hover {
   color: var(--color-muted);
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 /** Grid Utilities */
 .grid {
   display: grid;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-lg, 1.5rem);
 }
 
 .grid-2 {
@@ -306,23 +293,23 @@ a:hover {
 }
 
 .gap-sm {
-  gap: var(--spacing-sm);
+  gap: var(--spacing-sm, 0.5rem);
 }
 
 .gap-md {
-  gap: var(--spacing-md);
+  gap: var(--spacing-md, 1rem);
 }
 
 .gap-lg {
-  gap: var(--spacing-lg);
+  gap: var(--spacing-lg, 1.5rem);
 }
 
 /** Card Styles */
 .card {
   background-color: var(--color-secondary-bg);
-  border-radius: var(--style-border-radius-inputs);
+  border-radius: var(--style-border-radius-inputs, 8px);
   overflow: hidden;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
 .card:hover {
@@ -337,7 +324,7 @@ a:hover {
 }
 
 .card-content {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg, 1.5rem);
 }
 
 /** Scrollbar Styling */
@@ -359,16 +346,6 @@ a:hover {
   background: var(--color-muted);
 }
 
-/** Main content area */
-main {
-  flex: 1;
-}
-
-/** Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
-
 /** Focus styles for accessibility */
 :focus-visible {
   outline: 2px solid var(--color-accent);
@@ -381,7 +358,8 @@ html {
 }
 
 /** Visually hidden but accessible */
-.visually-hidden {
+.visually-hidden,
+.sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -391,4 +369,22 @@ html {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/** Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 1rem 2rem;
+  background: var(--color-accent);
+  color: white;
+  border-radius: 0 0 8px 8px;
+  transition: top 200ms ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
 }

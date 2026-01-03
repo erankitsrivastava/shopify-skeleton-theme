@@ -11,36 +11,36 @@
 
   :root {
     /* Typography */
-    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
-    --font-primary--style: {{ settings.type_primary_font.style }};
-    --font-primary--weight: {{ settings.type_primary_font.weight }};
-    --font-heading--family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
-    --font-heading--style: {{ settings.type_heading_font.style }};
-    --font-heading--weight: {{ settings.type_heading_font.weight }};
+    --font-primary--family: {% if settings.type_primary_font.family %}{{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }}{% else %}Poppins, sans-serif{% endif %};
+    --font-primary--style: {{ settings.type_primary_font.style | default: 'normal' }};
+    --font-primary--weight: {{ settings.type_primary_font.weight | default: '400' }};
+    --font-heading--family: {% if settings.type_heading_font.family %}{{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }}{% else %}Playfair Display, serif{% endif %};
+    --font-heading--style: {{ settings.type_heading_font.style | default: 'normal' }};
+    --font-heading--weight: {{ settings.type_heading_font.weight | default: '700' }};
 
     /* Layout */
-    --page-width: {{ settings.max_page_width }};
-    --page-margin: {{ settings.min_page_margin }}px;
+    --page-width: {{ settings.max_page_width | default: '90rem' }};
+    --page-margin: {{ settings.min_page_margin | default: 20 }}px;
 
     /* Primary Colors */
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
-    --color-accent: {{ settings.accent_color }};
+    --color-background: {{ settings.background_color | default: '#0f172a' }};
+    --color-foreground: {{ settings.foreground_color | default: '#ffffff' }};
+    --color-accent: {{ settings.accent_color | default: '#3b82f6' }};
 
     /* Secondary Colors */
-    --color-secondary-bg: {{ settings.secondary_background }};
-    --color-muted: {{ settings.muted_text_color }};
-    --color-border: {{ settings.border_color }};
+    --color-secondary-bg: {{ settings.secondary_background | default: '#1e293b' }};
+    --color-muted: {{ settings.muted_text_color | default: '#94a3b8' }};
+    --color-border: {{ settings.border_color | default: '#334155' }};
 
     /* Button Colors */
-    --color-button-primary-bg: {{ settings.button_primary_bg }};
-    --color-button-primary-text: {{ settings.button_primary_text }};
-    --color-button-secondary-bg: {{ settings.button_secondary_bg }};
-    --color-button-secondary-text: {{ settings.button_secondary_text }};
+    --color-button-primary-bg: {{ settings.button_primary_bg | default: '#3b82f6' }};
+    --color-button-primary-text: {{ settings.button_primary_text | default: '#ffffff' }};
+    --color-button-secondary-bg: {{ settings.button_secondary_bg | default: 'transparent' }};
+    --color-button-secondary-text: {{ settings.button_secondary_text | default: '#ffffff' }};
 
     /* Border Radius */
-    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
-    --style-border-radius-buttons: {{ settings.button_corner_radius }}px;
+    --style-border-radius-inputs: {{ settings.input_corner_radius | default: 8 }}px;
+    --style-border-radius-buttons: {{ settings.button_corner_radius | default: 8 }}px;
 
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);

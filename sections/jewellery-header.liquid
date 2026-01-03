@@ -3,7 +3,7 @@
   A clean, modern header with logo, navigation, and social links
 {% endcomment %}
 
-<header class="jewellery-header" data-section-id="{{ section.id }}">
+<header class="jewellery-header{% if section.settings.sticky_header %} sticky-header{% endif %}" data-section-id="{{ section.id }}">
   <div class="header-container">
     <!-- Logo -->
     <div class="header-logo">
@@ -110,11 +110,15 @@
 
 {% stylesheet %}
   .jewellery-header {
-    position: {% if section.settings.sticky_header %}sticky{% else %}relative{% endif %};
-    top: 0;
+    position: relative;
     z-index: 1000;
     background-color: var(--color-background);
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .jewellery-header.sticky-header {
+    position: sticky;
+    top: 0;
   }
 
   .header-container {
@@ -161,7 +165,7 @@
     font-weight: 500;
     text-decoration: none;
     color: var(--color-foreground);
-    transition: color var(--transition-fast);
+    transition: color 150ms ease;
     padding: 0.5rem 0;
     position: relative;
   }
@@ -194,7 +198,7 @@
     color: var(--color-foreground);
     text-decoration: none;
     font-size: 0.875rem;
-    transition: color var(--transition-fast);
+    transition: color 150ms ease;
   }
 
   .header-social-link:hover {
@@ -268,7 +272,7 @@
 
   .mobile-nav-social a {
     color: var(--color-foreground);
-    transition: color var(--transition-fast);
+    transition: color 150ms ease;
   }
 
   .mobile-nav-social a:hover {
