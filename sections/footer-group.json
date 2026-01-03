@@ -1,21 +1,35 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "type": "footer",
   "name": "t:general.footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "jewellery-footer",
+      "blocks": {
+        "menu-1": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Quick Links"
+          }
+        },
+        "menu-2": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Customer Service"
+          }
+        }
+      },
+      "block_order": ["menu-1", "menu-2"],
       "settings": {
-        "menu": "",
-        "show_payment_icons": true
+        "show_top_section": true,
+        "logo_text": "Varun Jewellers",
+        "logo_width": 120,
+        "about_text": "Where heritage meets modern luxury. Crafting timeless jewellery pieces since 1980.",
+        "show_newsletter": true,
+        "newsletter_title": "Stay Updated",
+        "newsletter_text": "Subscribe for exclusive offers and new arrivals.",
+        "newsletter_placeholder": "Enter your email",
+        "copyright_text": "Copyright",
+        "rights_text": "All rights reserved."
       }
     }
   },

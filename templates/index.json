@@ -1,152 +1,338 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero-slider": {
-      "type": "hero-slider",
+    "jewellery-hero": {
+      "type": "jewellery-hero",
+      "settings": {
+        "subtitle": "Varun Jeweller's",
+        "title": "Where Heritage Meets Modern Luxury",
+        "description": "Timeless artistry, modern soul. Explore our designs",
+        "button_1_text": "Explore",
+        "button_1_icon": true,
+        "button_2_text": "Shop Online",
+        "button_2_icon": true,
+        "button_3_text": "Visit Store",
+        "button_3_icon": true,
+        "show_badge": true,
+        "badge_icon": "✨"
+      }
+    },
+    "gallery-showcase": {
+      "type": "gallery-showcase",
+      "blocks": {
+        "gallery-1": {
+          "type": "image",
+          "settings": {
+            "caption": "Living Room Elegance"
+          }
+        },
+        "gallery-2": {
+          "type": "image",
+          "settings": {
+            "caption": "Temple Collection"
+          }
+        },
+        "gallery-3": {
+          "type": "image",
+          "settings": {
+            "caption": "Divine Brass Idols"
+          }
+        },
+        "gallery-4": {
+          "type": "image",
+          "settings": {
+            "caption": "Festive Decor"
+          }
+        }
+      },
+      "block_order": ["gallery-1", "gallery-2", "gallery-3", "gallery-4"],
+      "settings": {
+        "title": "See How Idols Come Alive in Real Spaces",
+        "button_text": "Discover the Whole Collection"
+      }
+    },
+    "about-us": {
+      "type": "about-us",
       "blocks": {
         "slide-1": {
-          "type": "slide",
+          "type": "text_slide",
           "settings": {
-            "subheading": "THE NEW FRAGRANCE FOR MEN",
-            "heading": "BOSS HUGO BOSS BOTTLED",
-            "button_label": "SHOP NOW",
-            "button_link": ""
+            "text": "<p>At <strong>Varun Jewellers</strong>, we blend tradition with elegance to offer a wide range of exquisitely crafted antique jewellery. Nestled in the heart of Lucknow, India, we offer timeless designs that resonate with your unique identity. From intricate designs for every occasion, to wedding sets, purity chains, brass idols and more.</p>"
+          }
+        },
+        "slide-2": {
+          "type": "text_slide",
+          "settings": {
+            "text": "<p>With unmatched craftsmanship and unwavering commitment, we are your go-to destination for antiques and all things jewellery - where <strong>every piece tells a story</strong>.</p>"
           }
         }
       },
-      "block_order": [
-        "slide-1"
-      ],
-      "settings": {}
-    },
-    "brand-carousel": {
-      "type": "brand-carousel",
-      "blocks": {
-        "brand-1": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "CREED"
-          }
-        },
-        "brand-2": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "BURBERRY"
-          }
-        },
-        "brand-3": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "CHANEL"
-          }
-        },
-        "brand-4": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "CALVIN KLEIN"
-          }
-        },
-        "brand-5": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Christian Dior"
-          }
-        },
-        "brand-6": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "GIORGIO ARMANI"
-          }
-        },
-        "brand-7": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "TOM FORD"
-          }
-        },
-        "brand-8": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "VERSACE"
-          }
-        },
-        "brand-9": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Yves Saint Laurent"
-          }
-        }
-      },
-      "block_order": [
-        "brand-1",
-        "brand-2",
-        "brand-3",
-        "brand-4",
-        "brand-5",
-        "brand-6",
-        "brand-7",
-        "brand-8",
-        "brand-9"
-      ],
+      "block_order": ["slide-1", "slide-2"],
       "settings": {
-        "show_navigation": true
+        "eyebrow": "Crafting Trust, Elegance & Tradition Since Day One",
+        "title": "About Us",
+        "subtitle": "VJ - Where purity meets affordability",
+        "highlight_text": "With unmatched craftsmanship and unwavering commitment, we are your go-to destination for antiques and all things jewellery - where every piece tells a story."
       }
     },
-    "featured-products": {
-      "type": "featured-products",
-      "settings": {
-        "heading": "THE MOST POPULAR",
-        "subheading": "Moisturising beautifully glowing and clean skin all year round",
-        "products_limit": 8,
-        "show_filters": true,
-        "show_view_all": true
-      }
-    },
-    "promo-banners": {
-      "type": "promo-banners",
+    "client-diaries": {
+      "type": "client-diaries",
       "blocks": {
-        "banner-1": {
-          "type": "banner",
+        "post-1": {
+          "type": "post",
           "settings": {
-            "subheading": "unique niche perfumes collection",
-            "heading": "SAP PERFUMES"
+            "username": "Varun Jewellers | Gold & Silver Showroom",
+            "handle": "@varunjewellers_official",
+            "platform": "instagram",
+            "caption": "Beautiful brass idols bringing divine energy to our customer's home. Thank you for choosing VJ!",
+            "likes": "892",
+            "comments": "56"
           }
         },
-        "banner-2": {
-          "type": "banner",
+        "post-2": {
+          "type": "post",
           "settings": {
-            "subheading": "Scent of the Season",
-            "heading": "LEGENDS IN LUXURY"
+            "username": "Priya Sharma",
+            "handle": "@priyasharma_lucknow",
+            "platform": "instagram",
+            "caption": "My wedding set from Varun Jewellers is absolutely stunning! The craftsmanship is unmatched.",
+            "likes": "1.2K",
+            "comments": "89"
           }
         },
-        "banner-3": {
-          "type": "banner",
+        "post-3": {
+          "type": "post",
           "settings": {
-            "subheading": "New Fragrance",
-            "heading": "MISS DIOR"
+            "username": "Happy Customer",
+            "handle": "@goldlover",
+            "platform": "facebook",
+            "caption": "Best quality brass idols at the best prices. Varun Jewellers never disappoints!",
+            "likes": "567",
+            "comments": "34"
+          }
+        },
+        "post-4": {
+          "type": "post",
+          "settings": {
+            "username": "Temple Decor",
+            "handle": "@templedecor_india",
+            "platform": "instagram",
+            "caption": "Our new temple setup featuring beautiful idols from VJ. Simply divine!",
+            "likes": "2.1K",
+            "comments": "145"
+          }
+        },
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "4.5K+",
+            "label": "Happy Customers"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "2500+",
+            "label": "Unique Designs"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "900+",
+            "label": "Custom Orders"
+          }
+        },
+        "stat-4": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9",
+            "label": "Rating"
           }
         }
       },
-      "block_order": [
-        "banner-1",
-        "banner-2",
-        "banner-3"
-      ],
+      "block_order": ["post-1", "post-2", "post-3", "post-4", "stat-1", "stat-2", "stat-3", "stat-4"],
+      "settings": {
+        "title": "Client Diaries"
+      }
+    },
+    "vj-promises": {
+      "type": "vj-promises",
+      "blocks": {
+        "promise-1": {
+          "type": "promise",
+          "settings": {
+            "icon": "purity",
+            "title": "Purity You Can Trust",
+            "description": "100% purity in every piece, backed and certified by a solid 40+ year history. Transparent gold rate live with no hidden charges."
+          }
+        },
+        "promise-2": {
+          "type": "promise",
+          "settings": {
+            "icon": "value",
+            "title": "True Value for Your Money",
+            "description": "Our competitive prices and clear pricing changes. Fair exchange policies, giving you upfront value."
+          }
+        },
+        "promise-3": {
+          "type": "promise",
+          "settings": {
+            "icon": "tailored",
+            "title": "Tailored to You",
+            "description": "We build to meet, jewellery to law. Customization on select designs, premium crafted with design precision."
+          }
+        },
+        "promise-4": {
+          "type": "promise",
+          "settings": {
+            "icon": "care",
+            "title": "Lifelong Care & Benefits",
+            "description": "Free lifetime polish and minor repairs included. Smooth delivery services ensure safe delivery."
+          }
+        },
+        "promise-5": {
+          "type": "promise",
+          "settings": {
+            "icon": "legacy",
+            "title": "Legacy of Craftsmanship",
+            "description": "Generations of gold-smith expertise. Trusted brand with skills passed to continuous generations."
+          }
+        },
+        "promise-6": {
+          "type": "promise",
+          "settings": {
+            "icon": "star",
+            "title": "Quality Assured",
+            "description": "Each piece undergoes rigorous quality checks ensuring you receive only the finest jewellery."
+          }
+        }
+      },
+      "block_order": ["promise-1", "promise-2", "promise-3", "promise-4", "promise-5", "promise-6"],
+      "settings": {
+        "title": "VJ Promises"
+      }
+    },
+    "real-life-moments": {
+      "type": "real-life-moments",
+      "blocks": {
+        "moment-1": { "type": "moment", "settings": { "caption": "Wedding celebration" } },
+        "moment-2": { "type": "moment", "settings": { "caption": "Festival decor" } },
+        "moment-3": { "type": "moment", "settings": { "caption": "Temple setup" } },
+        "moment-4": { "type": "moment", "settings": { "caption": "Gift giving" } },
+        "moment-5": { "type": "moment", "settings": { "caption": "Home decoration" } },
+        "moment-6": { "type": "moment", "settings": { "caption": "Special occasions" } }
+      },
+      "block_order": ["moment-1", "moment-2", "moment-3", "moment-4", "moment-5", "moment-6"],
+      "settings": {
+        "title": "Real-Life Moments Of Elegance",
+        "button_text": "View on Instagram"
+      }
+    },
+    "customer-reviews": {
+      "type": "customer-reviews",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "source_name": "Google",
+            "rating": 5,
+            "review_text": "Excellent service and beautiful designs. The team helped me find the perfect wedding set for my daughter. Highly recommend Varun Jewellers!",
+            "author_name": "Sunita Agarwal",
+            "author_location": "Lucknow, India",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "source_name": "Facebook",
+            "rating": 5,
+            "review_text": "Best jewellery store in Lucknow! Pure gold, fair prices, and amazing craftsmanship. Been a customer for 15 years.",
+            "author_name": "Rajesh Kumar",
+            "author_location": "Kanpur, India",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "source_name": "Google",
+            "rating": 5,
+            "review_text": "Beautiful brass idols collection. Perfect for gifting. The quality exceeded my expectations. Will definitely return!",
+            "author_name": "Priya Sharma",
+            "author_location": "Delhi, India",
+            "verified": true
+          }
+        },
+        "review-4": {
+          "type": "review",
+          "settings": {
+            "source_name": "Instagram",
+            "rating": 5,
+            "review_text": "Found my dream engagement ring here! The staff was patient and helped me choose the perfect design.",
+            "author_name": "Amit Verma",
+            "author_location": "Lucknow, India",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3", "review-4"],
+      "settings": {
+        "title": "The experiences we've given to the #VJFam",
+        "total_reviews": "250+",
+        "followers_count": "50K+"
+      }
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "icon": "shipping",
+            "title": "Pan India Shipping",
+            "description": "Dispatch in 3 working days on all orders. Shipping anywhere in your location within 7-10 days."
+          }
+        },
+        "badge-2": {
+          "type": "badge",
+          "settings": {
+            "icon": "security",
+            "title": "Secure Transactions",
+            "description": "We use secure payment gateways. BIS certified products. Accept all major Credit & Debit Cards."
+          }
+        },
+        "badge-3": {
+          "type": "badge",
+          "settings": {
+            "icon": "returns",
+            "title": "Hassle-Free Returns",
+            "description": "Change of heart? Get full value exchange within 7 days of delivery. No questions asked."
+          }
+        }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3"],
       "settings": {}
+    },
+    "store-locator": {
+      "type": "store-locator",
+      "settings": {
+        "title": "Visit Our Offline Store In Gomti Nagar Today",
+        "show_marker": true,
+        "store_name": "Varun Jewellers",
+        "address": "Office Jewellers Office, Shop no. 7, Purana Road, Gomti Nagar, Lucknow-226010, INDIA"
+      }
     }
   },
   "order": [
-    "hero-slider",
-    "brand-carousel",
-    "featured-products",
-    "promo-banners"
+    "jewellery-hero",
+    "gallery-showcase",
+    "about-us",
+    "client-diaries",
+    "vj-promises",
+    "real-life-moments",
+    "customer-reviews",
+    "trust-badges",
+    "store-locator"
   ]
 }

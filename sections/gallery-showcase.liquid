@@ -1,0 +1,238 @@
+{% comment %}
+  Gallery Showcase Section
+  Display products in real-life settings with scrollable gallery
+{% endcomment %}
+
+<section class="gallery-showcase section-padding" data-section-id="{{ section.id }}">
+  <div class="gallery-container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "See How Idols Come Alive in Real Spaces" }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="gallery-wrapper">
+      <div class="gallery-scroll">
+        {% for block in section.blocks %}
+          <div class="gallery-item" {{ block.shopify_attributes }}>
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 400 }}"
+                srcset="{{ block.settings.image | image_url: width: 300 }} 300w,
+                        {{ block.settings.image | image_url: width: 400 }} 400w,
+                        {{ block.settings.image | image_url: width: 500 }} 500w"
+                sizes="(max-width: 768px) 280px, 350px"
+                alt="{{ block.settings.image_alt | default: 'Gallery image' }}"
+                loading="lazy"
+                class="gallery-image"
+              >
+            {% else %}
+              <div class="gallery-placeholder">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+            {% endif %}
+            {% if block.settings.caption != blank %}
+              <div class="gallery-caption">
+                <p>{{ block.settings.caption }}</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if section.settings.button_text != blank %}
+      <div class="gallery-cta">
+        <a href="{{ section.settings.button_link }}" class="btn btn-primary">
+          {{ section.settings.button_text }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .gallery-showcase {
+    background-color: var(--color-background);
+  }
+
+  .gallery-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  .gallery-wrapper {
+    position: relative;
+    margin: 0 calc(var(--page-margin) * -1);
+    padding: 0 var(--page-margin);
+    overflow: hidden;
+  }
+
+  .gallery-scroll {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: var(--spacing-md);
+  }
+
+  .gallery-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-item {
+    flex: 0 0 auto;
+    width: 280px;
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: var(--style-border-radius-inputs);
+    overflow: hidden;
+  }
+
+  .gallery-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+  }
+
+  .gallery-item:hover .gallery-image {
+    transform: scale(1.05);
+  }
+
+  .gallery-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 350px;
+    background-color: var(--color-secondary-bg);
+    color: var(--color-muted);
+  }
+
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-md);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--color-foreground);
+  }
+
+  .gallery-caption p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  .gallery-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-2xl);
+  }
+
+  @media (min-width: 768px) {
+    .gallery-item {
+      width: 350px;
+    }
+
+    .gallery-image,
+    .gallery-placeholder {
+      height: 420px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gallery-scroll {
+      justify-content: center;
+      overflow-x: visible;
+      flex-wrap: wrap;
+    }
+
+    .gallery-item {
+      width: calc(25% - var(--spacing-lg));
+      min-width: 250px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Gallery Showcase",
+  "tag": "section",
+  "class": "gallery-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "See How Idols Come Alive in Real Spaces"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Discover the Whole Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Gallery Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image Alt Text"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery Showcase",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

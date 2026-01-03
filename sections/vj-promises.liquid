@@ -1,0 +1,266 @@
+{% comment %}
+  VJ Promises Section
+  Display company promises/features in a grid layout
+{% endcomment %}
+
+<section class="vj-promises section-padding" data-section-id="{{ section.id }}">
+  <div class="promises-container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "VJ Promises" }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="promises-grid">
+      {% for block in section.blocks %}
+        <div class="promise-card" {{ block.shopify_attributes }}>
+          <div class="promise-icon">
+            {% if block.settings.custom_icon != blank %}
+              <img
+                src="{{ block.settings.custom_icon | image_url: width: 80 }}"
+                alt="{{ block.settings.title }}"
+                width="40"
+                height="40"
+                loading="lazy"
+              >
+            {% else %}
+              {% case block.settings.icon %}
+                {% when 'purity' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                  </svg>
+                {% when 'value' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path>
+                    <path d="M12 18V6"></path>
+                  </svg>
+                {% when 'tailored' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                  </svg>
+                {% when 'care' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                  </svg>
+                {% when 'legacy' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                  </svg>
+                {% when 'star' %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                {% else %}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9 12l2 2 4-4"></path>
+                  </svg>
+              {% endcase %}
+            {% endif %}
+          </div>
+          <h3 class="promise-title">{{ block.settings.title }}</h3>
+          {% if block.settings.description != blank %}
+            <p class="promise-description">{{ block.settings.description }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .vj-promises {
+    background-color: var(--color-secondary-bg);
+  }
+
+  .promises-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  .promises-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+
+  .promise-card {
+    background-color: var(--color-background);
+    padding: var(--spacing-xl);
+    border-radius: var(--style-border-radius-inputs);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  }
+
+  .promise-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .promise-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-accent);
+    color: var(--color-foreground);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .promise-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .promise-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .promise-description {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .promises-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .promises-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .promise-card {
+      padding: var(--spacing-lg);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "VJ Promises",
+  "tag": "section",
+  "class": "promises-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "VJ Promises"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise",
+      "name": "Promise",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "purity", "label": "Purity/Shield" },
+            { "value": "value", "label": "Value/Money" },
+            { "value": "tailored", "label": "Tailored/Custom" },
+            { "value": "care", "label": "Care/Heart" },
+            { "value": "legacy", "label": "Legacy/Layers" },
+            { "value": "star", "label": "Star" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Promise Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Description of this promise or feature."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "VJ Promises",
+      "blocks": [
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "purity",
+            "title": "Purity You Can Trust",
+            "description": "100% purity in every piece, backed and certified by a solid 40+ year history. Transparent gold rate live with no hidden charges."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "value",
+            "title": "True Value for Your Money",
+            "description": "Our competitive prices and clear pricing changes. Fair exchange policies, giving you upfront value."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "tailored",
+            "title": "Tailored to You",
+            "description": "We build to meet, jewellery to law. Customization on select designs, premium crafted with design precision - available."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "care",
+            "title": "Lifelong Care & Benefits",
+            "description": "Free lifetime polish and minor repairs included. We handle crafting more, smooth delivery services ensure safe delivery."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "legacy",
+            "title": "Legacy of Craftsmanship",
+            "description": "Generations of gold-smith expertise. Trusted brand, pass skills and know-how passed to continuous time cycles."
+          }
+        },
+        {
+          "type": "promise",
+          "settings": {
+            "icon": "star",
+            "title": "Quality Assured",
+            "description": "Each piece undergoes rigorous quality checks ensuring you receive only the finest jewellery."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

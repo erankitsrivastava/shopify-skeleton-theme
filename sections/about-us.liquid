@@ -1,0 +1,297 @@
+{% comment %}
+  About Us Section
+  Company information with text slider/carousel
+{% endcomment %}
+
+<section class="about-us-section section-padding" data-section-id="{{ section.id }}">
+  <div class="about-container">
+    <div class="about-header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="about-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      <h2 class="about-title">{{ section.settings.title | default: "About Us" }}</h2>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text-wrapper">
+        {% if section.settings.subtitle != blank %}
+          <h3 class="about-subtitle">{{ section.settings.subtitle }}</h3>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+          <div class="about-slider" data-slider>
+            <div class="slider-content">
+              {% for block in section.blocks %}
+                <div class="slide {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                  <div class="slide-text">{{ block.settings.text }}</div>
+                </div>
+              {% endfor %}
+            </div>
+
+            {% if section.blocks.size > 1 %}
+              <div class="slider-dots">
+                {% for block in section.blocks %}
+                  <button
+                    class="slider-dot {% if forloop.first %}active{% endif %}"
+                    data-dot="{{ forloop.index0 }}"
+                    aria-label="Go to slide {{ forloop.index }}"
+                  ></button>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <div class="about-text">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.highlight_text != blank %}
+          <p class="about-highlight">{{ section.settings.highlight_text }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .about-us-section {
+    background-color: var(--color-background);
+  }
+
+  .about-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  .about-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .about-eyebrow {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .about-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+  }
+
+  .about-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-foreground);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+  }
+
+  .about-slider {
+    position: relative;
+  }
+
+  .slider-content {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  }
+
+  .slide.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .slide-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-muted);
+  }
+
+  .slider-dots {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+  }
+
+  .slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-border);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+    padding: 0;
+  }
+
+  .slider-dot:hover {
+    background-color: var(--color-muted);
+  }
+
+  .slider-dot.active {
+    background-color: var(--color-accent);
+    transform: scale(1.2);
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-muted);
+  }
+
+  .about-highlight {
+    font-size: 0.875rem;
+    color: var(--color-accent);
+    margin-top: var(--spacing-lg);
+    font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    .about-content {
+      grid-template-columns: 1fr 1.5fr;
+    }
+
+    .about-header {
+      margin-bottom: 0;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  const sliders = document.querySelectorAll('[data-slider]');
+
+  sliders.forEach(slider => {
+    const slides = slider.querySelectorAll('[data-slide]');
+    const dots = slider.querySelectorAll('[data-dot]');
+    let currentSlide = 0;
+    let autoplayInterval;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      const next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function startAutoplay() {
+      autoplayInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        showSlide(index);
+        startAutoplay();
+      });
+    });
+
+    if (slides.length > 1) {
+      startAutoplay();
+    }
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "About Us",
+  "tag": "section",
+  "class": "about-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Crafting Trust, Elegance & Tradition Since Day One"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "About Us"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "VJ - Where purity meets affordability"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description (if no slides)",
+      "default": "<p>At Varun Jewellers, we blend tradition with elegance to offer a wide range of exquisitely crafted antique jewellery. Nestled in the heart of Lucknow, India, we offer timeless designs that resonate with your unique identity. From intricate designs for every occasion, to wedding sets, purity chains, brass idols and more - we deliver an exceptional, rich luxurious experience.</p>"
+    },
+    {
+      "type": "text",
+      "id": "highlight_text",
+      "label": "Highlight Text",
+      "default": "With unmatched craftsmanship and unwavering commitment, we are your go-to destination for antiques and all things jewellery - where every piece tells a story."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_slide",
+      "name": "Text Slide",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Slide Text",
+          "default": "<p>At Varun Jewellers, we blend tradition with elegance to offer a wide range of exquisitely crafted antique jewellery.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us",
+      "blocks": [
+        {
+          "type": "text_slide",
+          "settings": {
+            "text": "<p>At Varun Jewellers, we blend tradition with elegance to offer a wide range of exquisitely crafted antique jewellery. Nestled in the heart of Lucknow, India, we offer timeless designs that resonate with your unique identity.</p>"
+          }
+        },
+        {
+          "type": "text_slide",
+          "settings": {
+            "text": "<p>From intricate designs for every occasion, to wedding sets, purity chains, brass idols and more - we deliver an exceptional, rich luxurious experience with unmatched craftsmanship.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,508 @@
+{% comment %}
+  Customer Reviews/Testimonials Section
+  Display customer testimonials with ratings
+{% endcomment %}
+
+<section class="customer-reviews section-padding" data-section-id="{{ section.id }}">
+  <div class="reviews-container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "The experiences we've given to the #VJFam" }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="reviews-slider" data-reviews-slider>
+      <div class="reviews-track">
+        {% for block in section.blocks %}
+          <div class="review-card" {{ block.shopify_attributes }}>
+            <div class="review-header">
+              <div class="review-source">
+                {% if block.settings.source_logo != blank %}
+                  <img
+                    src="{{ block.settings.source_logo | image_url: width: 100 }}"
+                    alt="{{ block.settings.source_name }}"
+                    class="source-logo"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <span class="source-name">{{ block.settings.source_name | default: 'Google' }}</span>
+                {% endif %}
+              </div>
+              <div class="review-rating">
+                {% assign rating = block.settings.rating | default: 5 %}
+                {% for i in (1..5) %}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="{% if i <= rating %}currentColor{% else %}none{% endif %}" stroke="currentColor" stroke-width="2" class="star {% if i <= rating %}filled{% endif %}">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="review-content">
+              <p class="review-text">{{ block.settings.review_text }}</p>
+            </div>
+
+            <div class="review-author">
+              {% if block.settings.author_avatar != blank %}
+                <img
+                  src="{{ block.settings.author_avatar | image_url: width: 80 }}"
+                  alt="{{ block.settings.author_name }}"
+                  class="author-avatar"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="author-avatar-placeholder">
+                  {{ block.settings.author_name | slice: 0 | upcase }}
+                </div>
+              {% endif %}
+              <div class="author-info">
+                <span class="author-name">{{ block.settings.author_name | default: 'Happy Customer' }}</span>
+                {% if block.settings.author_location != blank %}
+                  <span class="author-location">{{ block.settings.author_location }}</span>
+                {% endif %}
+              </div>
+              {% if block.settings.verified %}
+                <span class="verified-badge" title="Verified Purchase">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L3 7v8c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/>
+                  </svg>
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.blocks.size > 3 %}
+        <div class="reviews-nav">
+          <button class="nav-btn prev" aria-label="Previous reviews">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="nav-btn next" aria-label="Next reviews">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Trust Badges -->
+    <div class="reviews-trust">
+      {% if section.settings.total_reviews != blank %}
+        <div class="trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="trust-icon">
+            <path d="M12 2L3 7v8c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/>
+          </svg>
+          <span>{{ section.settings.total_reviews }} Verified Reviews</span>
+        </div>
+      {% endif %}
+
+      {% if section.settings.followers_count != blank %}
+        <div class="trust-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span>{{ section.settings.followers_count }} Followers</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .customer-reviews {
+    background-color: var(--color-secondary-bg);
+  }
+
+  .reviews-container {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  .reviews-slider {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .reviews-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    flex: 0 0 auto;
+    width: 300px;
+    scroll-snap-align: start;
+    background-color: var(--color-background);
+    border-radius: var(--style-border-radius-inputs);
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .source-logo {
+    height: 24px;
+    width: auto;
+  }
+
+  .source-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .review-rating {
+    display: flex;
+    gap: 2px;
+  }
+
+  .star {
+    color: #fbbf24;
+  }
+
+  .star:not(.filled) {
+    color: var(--color-border);
+  }
+
+  .review-content {
+    flex: 1;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .review-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-muted);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .author-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    color: var(--color-foreground);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .author-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .author-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .author-location {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  .verified-badge {
+    color: var(--color-accent);
+  }
+
+  .reviews-nav {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    justify-content: space-between;
+    pointer-events: none;
+  }
+
+  .nav-btn {
+    pointer-events: auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-fast);
+  }
+
+  .nav-btn:hover {
+    background-color: var(--color-accent);
+  }
+
+  .nav-btn.prev {
+    margin-left: -20px;
+  }
+
+  .nav-btn.next {
+    margin-right: -20px;
+  }
+
+  .reviews-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .trust-icon {
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .reviews-nav {
+      display: flex;
+    }
+
+    .review-card {
+      width: 350px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .reviews-track {
+      justify-content: center;
+      flex-wrap: wrap;
+      overflow-x: visible;
+    }
+
+    .review-card {
+      width: calc(25% - var(--spacing-lg));
+      min-width: 280px;
+    }
+
+    .reviews-nav {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  const slider = document.querySelector('[data-reviews-slider]');
+  if (slider) {
+    const track = slider.querySelector('.reviews-track');
+    const prevBtn = slider.querySelector('.nav-btn.prev');
+    const nextBtn = slider.querySelector('.nav-btn.next');
+
+    if (prevBtn && nextBtn && track) {
+      const scrollAmount = 370;
+
+      prevBtn.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      });
+
+      nextBtn.addEventListener('click', () => {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      });
+    }
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "tag": "section",
+  "class": "reviews-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The experiences we've given to the #VJFam"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "header",
+      "content": "Trust Badges"
+    },
+    {
+      "type": "text",
+      "id": "total_reviews",
+      "label": "Total Reviews Count",
+      "default": "250+"
+    },
+    {
+      "type": "text",
+      "id": "followers_count",
+      "label": "Social Followers Count",
+      "default": "50K+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "source_logo",
+          "label": "Source Logo (Google, Facebook, etc.)"
+        },
+        {
+          "type": "text",
+          "id": "source_name",
+          "label": "Source Name",
+          "default": "Google"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Amazing experience at Varun Jewellers! The staff was incredibly helpful and the jewellery quality is outstanding."
+        },
+        {
+          "type": "image_picker",
+          "id": "author_avatar",
+          "label": "Author Avatar"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Happy Customer"
+        },
+        {
+          "type": "text",
+          "id": "author_location",
+          "label": "Author Location",
+          "default": "Lucknow, India"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Purchase",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "source_name": "Google",
+            "rating": 5,
+            "review_text": "Excellent service and beautiful designs. The team helped me find the perfect wedding set for my daughter.",
+            "author_name": "Sunita Agarwal",
+            "author_location": "Lucknow, India",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "source_name": "Facebook",
+            "rating": 5,
+            "review_text": "Best jewellery store in Lucknow! Pure gold, fair prices, and amazing craftsmanship. Highly recommend!",
+            "author_name": "Rajesh Kumar",
+            "author_location": "Kanpur, India",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "source_name": "Google",
+            "rating": 5,
+            "review_text": "Beautiful brass idols collection. Perfect for gifting. The quality exceeded my expectations.",
+            "author_name": "Priya Sharma",
+            "author_location": "Delhi, India",
+            "verified": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "source_name": "Instagram",
+            "rating": 5,
+            "review_text": "Found my dream engagement ring here! The staff was patient and helped me choose the perfect design.",
+            "author_name": "Amit Verma",
+            "author_location": "Lucknow, India",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

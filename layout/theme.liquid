@@ -7,7 +7,7 @@
     {% comment %}
       Font preloading:
       1. Preconnect to font CDN for faster connection
-      2. Preload only the critical font variant (base weight)
+      2. Preload only the critical font variants (base weight)
       3. Additional variants load on-demand via @font-face
     {% endcomment %}
     {% unless settings.type_primary_font.system? %}
@@ -15,6 +15,11 @@
 
       {% comment %} Preload the base font variant for initial page render {% endcomment %}
       {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {% endunless %}
+
+    {% unless settings.type_heading_font.system? %}
+      {% comment %} Preload the heading font variant {% endcomment %}
+      {{ settings.type_heading_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
     {% endunless %}
 
     {% # Load and preload the critical CSS %}
@@ -27,9 +32,13 @@
   </head>
 
   <body>
+    <a href="#main-content" class="skip-to-content visually-hidden">Skip to content</a>
+
     {% sections 'header-group' %}
 
-    {{ content_for_layout }}
+    <main id="main-content" role="main">
+      {{ content_for_layout }}
+    </main>
 
     {% sections 'footer-group' %}
   </body>
